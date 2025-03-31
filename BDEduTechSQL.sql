@@ -1,0 +1,59 @@
+use master
+go
+
+if DB_ID('Edutech') is not null
+	drop database Edutech
+go
+create database Edutech
+go
+
+use Edutech
+go
+
+-- Tablas de la base de datos
+if OBJECT_ID('ESTUDIANTES','T') is not null
+	drop table ESTUDIANTES
+go
+
+CREATE TABLE ESTUDIANTES ( 
+	ID_ESTUDIANTE int PRIMARY KEY, 
+	NOMBRE nCHAR(100), 
+	APELLIDO nCHAR(100), 
+	EMAIL nCHAR(100) UNIQUE, 
+	FECHA_NACIMIENTO DATE 
+)
+go
+
+if OBJECT_ID('CURSOS','T') is not null
+	drop table CURSOS
+go
+CREATE TABLE CURSOS ( 
+	ID_CURSO int PRIMARY KEY, 
+	NOMBRE_CURSO VARCHAR(100), 
+	DESCRIPCION VARCHAR(255), 
+	DURACION int, -- Duración en horas 
+	PRECIO decimal(10, 2)
+)
+go
+
+if OBJECT_ID('INSCRIPCIONES','T') is not null
+	drop table INSCRIPCIONES
+go
+
+CREATE TABLE INSCRIPCIONES ( 
+	ID_INSCRIPCION int PRIMARY KEY, 
+	ID_ESTUDIANTE int, 
+	ID_CURSO int, 
+	FECHA_INSCRIPCION DATE, 
+	CALIFICACION int, 
+	FOREIGN KEY (ID_ESTUDIANTE) REFERENCES ESTUDIANTES(ID_ESTUDIANTE), 
+	FOREIGN KEY (ID_CURSO) REFERENCES CURSOS(ID_CURSO) 
+)
+go
+
+
+
+
+
+
+
